@@ -1,0 +1,66 @@
+plugins {
+    id 'com.android.application'
+    id 'dev.rikka.tools.materialthemebuilder'
+}
+
+android {
+    compileSdk 32
+    buildToolsVersion "33.0.0"
+
+    defaultConfig {
+        applicationId "id.lxs.disquscoment"
+        minSdk 23
+        targetSdk 29
+        versionCode 10
+        versionName "1.0"
+        ndk { abiFilters 'armeabi-v7a', 'arm64-v8a' }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    sourceSets {
+        main {
+            // jniLibs.srcDir 'src/main/libs'
+            // jni.srcDirs = []
+        }
+    }
+}
+
+materialThemeBuilder {
+    themes {
+        'default' {
+            primaryColor = "#FF9254"
+            dynamicColors = false
+            lightThemeFormat = "Theme.Material3.Light.%s"
+            lightThemeParent = "Base.Material3.Light.Rikka"
+            
+            darkThemeFormat = "Theme.Material3.Dark.%s"
+            darkThemeParent = "Base.Material3.Dark.Rikka"
+        }
+    }
+    packageName = "id.lxs.disquscoment"
+    generatePalette = true
+}
+
+configurations.all {
+    exclude group: 'androidx.appcompat', module: 'appcompat'
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    api project(':androlua')
+
+    implementation 'dev.rikka.rikkax.appcompat:appcompat:1.4.1'
+    implementation 'dev.rikka.rikkax.material:material:2.5.1'
+    implementation 'androidx.webkit:webkit:1.4.0'
+    implementation "org.jsoup:jsoup:1.14.3"
+}

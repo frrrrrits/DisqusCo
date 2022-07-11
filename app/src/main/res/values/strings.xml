@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DisqusComment</string>
+    <string name="string_settings">Pengaturan</string>
+    <string name="string_refresh">Muat ulang</string>
+    <string name="string_openbrowser">Buka di browser</string>
+</resources>
