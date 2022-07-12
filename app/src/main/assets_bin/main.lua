@@ -6,7 +6,6 @@ import "utils.Theme"
 import "utils.Snack"
 import "utils.ViewExt"
 
-import "utils.dialog.DialogError"
 import "utils.dialog.DialogTextInput"
 import "android.webkit.WebViewClient"
 
@@ -24,6 +23,8 @@ function onCreate(savedInstance)
   webview.handleSettings(ids)
   webview.darkModeSupport(preference.webDarkMode:get())
   
+  ids.webView.loadUrl("https://google.com/")  
+  
   local dialog = DialogTextInput(activity)
   :setTitle("Hello!")
   :setHint("Masukan url")
@@ -33,11 +34,6 @@ function onCreate(savedInstance)
   end)
   :setPositiveButton("Mulai", function(dialog, text)
   end, true, true)
-
-  DialogError(this)
-  :message("Gagal mengambil data")
-  :positiveButton(function()end)
-  :negativeButton(function()end)
 
   -- dialog:show()
 end

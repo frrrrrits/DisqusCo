@@ -6,13 +6,18 @@ return function(ids)
   return LuaWebChromeClient(LuaWebChromeClient.LuaChromeCreator {
     onReceivedTitle = function(view, title)
       title:asTitleBar()
-      -- view.url:asSubtitleBar()
+      view.url:asSubtitleBar()
     end,
-  
+
     onCreateWindow = function(view, dialog, gesture, msg)
-      -- Todo
+      local href = view.getHandler().obtainMessage()
+      view.requestFocusNodeHref(href)
+      local url = tostring(href.getData().getString("url"))
+      if url ~= nil then
+        view.loadUrl(url)
+      end
     end,
-  
+
     onProgressChanged = function(view, progress)
       ids.progressBar.progress = progress
       if progress == 100 then

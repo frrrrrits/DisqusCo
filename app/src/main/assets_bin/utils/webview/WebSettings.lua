@@ -32,8 +32,6 @@ function base.handleSettings(ids)
   settings.setDomStorageEnabled(true)
   settings.setSupportMultipleWindows(true)
   settings.setLoadsImagesAutomatically(true)
-  settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
-  settings.setPluginState(WebSettings.PluginState.ON)
   settings.setJavaScriptCanOpenWindowsAutomatically(true)
 
   cookieManager.setAcceptThirdPartyCookies(ids.webView, true)

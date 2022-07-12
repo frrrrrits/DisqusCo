@@ -8,7 +8,7 @@ import "android.view.Gravity"
 import "android.view.ViewGroup$LayoutParams"
 
 -- custom snackbar
-function Snack.snack(text, view, lengthlong)
+function Snack.snack(text, lengthlong, view)
   local length = Snackbar.LENGTH_SHORT
 
   if lengthlong == nil then elseif lengthlong == true then

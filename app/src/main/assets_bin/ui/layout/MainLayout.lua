@@ -33,7 +33,7 @@ return function()
     {
       NestedWebView,
       id = "webView",
-      visibility = 4, -- gone
+      -- visibility = 4, -- gone
       layout_width = "match_parent",
       layout_height = "match_parent",
       layoutTransition = layoutTransition,
