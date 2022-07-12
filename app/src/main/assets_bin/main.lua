@@ -1,5 +1,3 @@
--- created by lxs7499
-
 require "import"
 import "initapp"
 import "ui.layout.MainLayout"
@@ -7,13 +5,14 @@ import "ui.settings.Settings"
 import "utils.Theme"
 import "utils.Snack"
 import "utils.ViewExt"
-import "utils.webview"
 
 import "utils.dialog.DialogError"
 import "utils.dialog.DialogTextInput"
 import "android.webkit.WebViewClient"
 
 local ids = {}
+local webview = require "utils.webview"
+local preference = require "utils.preference"
 defer dayNightDelegate = DayNightDelegate(this)
 
 function onCreate(savedInstance)
@@ -21,9 +20,9 @@ function onCreate(savedInstance)
   activity.setSupportActionBar(ids.toolbar)
 
   dayNightDelegate.onCreate(savedInstance)
-  dayNightDelegate.setDefaultNightMode(-1)
-
+ 
   webview.handleSettings(ids)
+  webview.darkModeSupport(preference.webDarkMode:get())
   
   local dialog = DialogTextInput(activity)
   :setTitle("Hello!")
@@ -39,20 +38,20 @@ function onCreate(savedInstance)
   :message("Gagal mengambil data")
   :positiveButton(function()end)
   :negativeButton(function()end)
-  
-  dialog:show()
+
+  -- dialog:show()
 end
 
 function onCreateOptionsMenu(menu,inflater)
-  activity.getMenuInflater().inflate(R.menu.main, menu)  
+  activity.getMenuInflater().inflate(R.menu.main, menu)
 end
 
 function onOptionsItemSelected(menuItem)
   switch menuItem.itemId
-    case R.id.action_settings
-    Settings()
-    case R.id.action_refresh
-    case R.id.action_openbrowser
+   case R.id.action_settings
+    Settings(this)
+   case R.id.action_refresh
+   case R.id.action_openbrowser
   end
 end
 

@@ -10,10 +10,6 @@ import "rikka.material.app.DayNightDelegate"
 local BuildVersion = Build.VERSION
 local VersionCodes = Build.VERSION_CODES
 
-function getCurrentThemeMode()
-  return dayNightDelegate.isDayNightChanged()
-end
-
 function onApplyTranslucentSystemBars()
   window.statusBarColor = Color.TRANSPARENT
   if BuildVersion.SDK_INT >= VersionCodes.P then
@@ -59,6 +55,5 @@ function fixWindowFlags()
   window.decorView.systemUiVisibility = flags
   WindowCompat.setDecorFitsSystemWindows(window, false)
 end
-
 
 return Theme

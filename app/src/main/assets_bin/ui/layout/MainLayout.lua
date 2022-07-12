@@ -1,3 +1,5 @@
+-- created by lxs7499
+
 require "import"
 import "android.view.ViewGroup"
 import "com.google.android.material.progressindicator.LinearProgressIndicator"
@@ -6,8 +8,6 @@ import "id.lxs.disquscoment.webview.NestedWebView"
 
 local layoutTransition = LayoutTransition()
 .enableTransitionType(LayoutTransition.CHANGING)
-
--- created by lxs7499
 
 return function()
   return {
@@ -33,7 +33,7 @@ return function()
     {
       NestedWebView,
       id = "webView",
-      visibility = 4,
+      visibility = 4, -- gone
       layout_width = "match_parent",
       layout_height = "match_parent",
       layoutTransition = layoutTransition,

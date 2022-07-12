@@ -4,10 +4,13 @@ import "id.lxs.disquscoment.webview.LuaWebViewClient"
 
 return function()
   return LuaWebViewClient(LuaWebViewClient.LuaWebClient {
+    onReceivedError = function(view, errcode, description, fallurl)
+      -- Todo
+    end,
 
-    onReceivedError = function(view, errcode, description, fallurl) end,
-
-    onReceivedHttpError = function(view, request, response) end,
+    onReceivedHttpError = function(view, request, response)
+      -- Todo
+    end,
 
     shouldOverrideUrlLoading = function(view, request)
       local url = request.url

@@ -12,7 +12,9 @@ import "androidx.webkit.WebViewFeature"
 
 import "android.content.res.Configuration"
 
-function handleWebSettings(ids)
+local base = {}
+
+function base.handleSettings(ids)
   local settings = ids.webView.getSettings()
   local cookieManager = CookieManager.getInstance()
 
@@ -36,18 +38,18 @@ function handleWebSettings(ids)
 
   cookieManager.setAcceptThirdPartyCookies(ids.webView, true)
   cookieManager.setAcceptCookie(true)
-  setDarkModeSupport(settings)
-  
+
   ids.webView.requestFocusFromTouch()
   ids.webView.setWebViewClient(WebClient())
   ids.webView.setWebChromeClient(ChromeClient(ids))
   
-  window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+  base.settings = settings
 end
 
-function setDarkModeSupport(settings)
+function base.darkModeSupport(state)
+  local settings = base.settings
   if WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) then
-    if getCurrentThemeMode() == true then
+    if state == true then
       WebSettingsCompat.setForceDark(settings, WebSettingsCompat.FORCE_DARK_ON)
       if WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY) then
         WebSettingsCompat.setForceDarkStrategy(settings, WebSettingsCompat.DARK_STRATEGY_PREFER_WEB_THEME_OVER_USER_AGENT_DARKENING)
@@ -57,3 +59,5 @@ function setDarkModeSupport(settings)
     WebSettingsCompat.setForceDark(settings, WebSettingsCompat.FORCE_DARK_OFF)
   end
 end
+
+return base
