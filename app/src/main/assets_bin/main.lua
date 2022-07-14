@@ -7,7 +7,6 @@ import "utils.ContextExt"
 import "utils.StringExt"
 import "ui.layout.MainLayout"
 import "ui.settings.Settings"
-import "utils.gesture.SwipeRightBack"
 
 local ids = {}
 local webview = require "utils.webview"
