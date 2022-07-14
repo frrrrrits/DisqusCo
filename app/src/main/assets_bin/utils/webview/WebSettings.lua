@@ -17,7 +17,7 @@ local base = {}
 function base.handleSettings(ids)
   local settings = ids.webView.getSettings()
   local cookieManager = CookieManager.getInstance()
-
+  settings.setJavaScriptEnabled(true)
   settings.setSaveFormData(true)
   settings.setSupportZoom(true)
   settings.setBuiltInZoomControls(true)
@@ -25,22 +25,20 @@ function base.handleSettings(ids)
   settings.setAppCacheEnabled(true)
   settings.setCacheMode(WebSettings.LOAD_DEFAULT)
   settings.setLoadWithOverviewMode(true)
-  settings.setUseWideViewPort(true)
-  settings.setJavaScriptEnabled(true)
   settings.setAllowContentAccess(true)
   settings.setBlockNetworkImage(false)
   settings.setDomStorageEnabled(true)
   settings.setSupportMultipleWindows(true)
   settings.setLoadsImagesAutomatically(true)
   settings.setJavaScriptCanOpenWindowsAutomatically(true)
-
+  settings.setUserAgentString(settings.getUserAgentString())
+  
   cookieManager.setAcceptThirdPartyCookies(ids.webView, true)
   cookieManager.setAcceptCookie(true)
 
   ids.webView.requestFocusFromTouch()
   ids.webView.setWebViewClient(WebClient())
   ids.webView.setWebChromeClient(ChromeClient(ids))
-  
   base.settings = settings
 end
 

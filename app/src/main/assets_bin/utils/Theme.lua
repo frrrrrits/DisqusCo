@@ -10,13 +10,13 @@ import "rikka.material.app.DayNightDelegate"
 local BuildVersion = Build.VERSION
 local VersionCodes = Build.VERSION_CODES
 
-function onApplyTranslucentSystemBars()
+function onApplyTranslucentSystemBars(ids)
   window.statusBarColor = Color.TRANSPARENT
   if BuildVersion.SDK_INT >= VersionCodes.P then
     window.decorView.post {
       run = function()
         local insetsBottom = window.decorView.rootWindowInsets.systemWindowInsetBottom
-        if insetsBottom ~= 0 and insetsBottom >= Resources.getSystem().displayMetrics.density * 40 then
+        if insetsBottom ~= 0 then
           window.navigationBarDividerColor =resource.resolveColor(android.R.attr.navigationBarDividerColor) and 0x35ffffff or -0x2000000
           window.navigationBarColor = ColorUtils.setAlphaComponent(MaterialColors.getColor(this, android.R.attr.navigationBarColor, Color.BLACK), 222)
          else
@@ -25,6 +25,20 @@ function onApplyTranslucentSystemBars()
       end
     }
   end
+
+  local success, error = pcall(function()
+    ApplyWindowInsetsListener(ids.coordinator, function(view, insets)
+      local systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+      view.setPadding(systemBar.left,0,systemBar.right,0)
+      return insets
+    end)
+  end)
+
+  if not success then
+    print("failed to apply EdgeToEdge.")
+  end
+
+  ViewCompat.requestApplyInsets(ids.coordinator)
 end
 
 function getStyledAttrBool(r)

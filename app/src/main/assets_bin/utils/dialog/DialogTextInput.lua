@@ -11,10 +11,6 @@ inputMethodService = activity.getSystemService(Context.INPUT_METHOD_SERVICE)
 local EmptyStr = "Gaboleh kosong."
 local MustHttp = "Url invalid."
 
-string.startwith = function(self, str)
-  return self:find("^" .. str) ~= nil
-end
-
 local function toboolean(b)
   if b then
     return true
@@ -25,11 +21,11 @@ end
 
 local function layout(ids, self)
   local matchParent = ViewGroup.LayoutParams.MATCH_PARENT
-  local wrapContent = ViewGroup.LayoutParams.WRAP_CONTENT 
-  
+  local wrapContent = ViewGroup.LayoutParams.WRAP_CONTENT
+
   ids.inputLayout = TextInputLayout(self.context)
-  ids.editText = TextInputEditText(ids.inputLayout.context) 
-  ids.inputLayout.layoutParams = LinearLayout.LayoutParams(matchParent, wrapContent)
+  ids.editText = TextInputEditText(ids.inputLayout.context)
+  ids.inputLayout.layoutParams = LinearLayout.LayoutParams(matchParent, matchParent)
   ids.editText.layoutParams = LinearLayout.LayoutParams(matchParent, matchParent)
 
   local padding = uihelper.dp2int(24)
@@ -73,6 +69,12 @@ function DialogTextInput:setAllowNull(state)
   return self
 end
 
+function DialogTextInput:setTextFromClipBoard()
+  local text = tostring(getClipBoard())
+  self.ids.editText.setText(text)
+  self.ids.editText.setSelection(utf8.len(text))
+end
+
 local function setButton(self, text, func, defaultFunc, checkNull, buttonType)
   local onClick
   if func then
@@ -85,10 +87,10 @@ local function setButton(self, text, func, defaultFunc, checkNull, buttonType)
           inputLayout.setError(EmptyStr).setErrorEnabled(true)
           return true
         end
-        if not tostring(text):startwith("https://") then
-          inputLayout.setError(EmptyStr).setErrorEnabled(true)
-          return true
-        end
+        -- if not text:startwith("http") then
+        --   inputLayout.setError(MustHttp).setErrorEnabled(true)
+        --   return true
+        -- end
       end
       if not (func(dialog, text)) then
         inputLayout.setErrorEnabled(false)
@@ -113,6 +115,10 @@ end
 
 function DialogTextInput:setNegativeButton(text, func, defaultFunc, checkNull)
   return setButton(self, text, func, defaultFunc, checkNull, "negativeButton")
+end
+
+function DialogTextInput:dismiss()
+  self.dialog.dismiss()
 end
 
 function DialogTextInput:show()
@@ -162,6 +168,7 @@ function DialogTextInput:show()
       end
     end
   end
+
   if negativeButton then
     local button = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
     if negativeButton[2] then
@@ -180,7 +187,6 @@ function DialogTextInput:show()
   local editText, inputLayout = ids.editText, ids.inputLayout
   editText.requestFocusFromTouch()
   inputMethodService.showSoftInput(editText, 0)
-
   if helperText then
     if type(helperText) == "number" then
       helperText = context.getString(helperText)
@@ -213,13 +219,13 @@ function DialogTextInput:show()
             content.setEnabled(false)
           end
           return
-         elseif not text:startwith("https://") or text:startwith("http://") and not (oldErrorEnabled) then
-          inputLayout.setError(MustHttp).setErrorEnabled(true)
-          oldErrorEnabled = true
-          for index, content in ipairs(checkNullButtons) do
-            content.setEnabled(false)
-          end
-          return
+          -- elseif not text:startwith("https://") or text:startwith("http://") and not (oldErrorEnabled) then
+          -- inputLayout.setError(MustHttp).setErrorEnabled(true)
+          -- oldErrorEnabled = true
+          -- for index, content in ipairs(checkNullButtons) do
+          --  content.setEnabled(false)
+          -- end
+          -- return
          elseif oldErrorEnabled then
           inputLayout.setErrorEnabled(false)
           oldErrorEnabled = false

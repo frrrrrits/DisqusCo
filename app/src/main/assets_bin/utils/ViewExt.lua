@@ -9,3 +9,9 @@ string.asSubtitleBar = function(self)
   string.subtitle = self
   activity.getSupportActionBar().subtitle = tostring(self.subtitle)
 end
+
+function ApplyWindowInsetsListener(view, fun)
+  ViewCompat.setOnApplyWindowInsetsListener(view, OnApplyWindowInsetsListener {
+    onApplyWindowInsets = fun
+  })
+end

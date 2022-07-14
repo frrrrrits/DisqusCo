@@ -1,6 +1,8 @@
 -- created by lxs7499
 
 import "utils.Snack"
+import "utils.StringExt"
+import "utils.webview.Utils"
 import "id.lxs.disquscoment.webview.LuaWebViewClient"
 
 local function message(url, errorCode, description)
@@ -16,8 +18,10 @@ return function()
     shouldOverrideUrlLoading = function(view, request)
       local url = tostring(request.url)
       if url ~= nil then
-        view.loadUrl(url)
+        Utils.createDialog(url, view)
       end
+      Utils.saveUrl(url)
+      return true
     end,
   })
 end

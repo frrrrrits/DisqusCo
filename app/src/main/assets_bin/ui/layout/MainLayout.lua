@@ -13,7 +13,6 @@ return function()
   return {
     CoordinatorLayout,
     id = "coordinator",
-    fitsSystemWindows = true,
     layout_width = "match_parent",
     layout_height = "match_parent",
     {
@@ -23,7 +22,7 @@ return function()
       layout_width = "match_parent",
       layout_height = "wrap_content",
       {
-       MaterialToolbar,
+        MaterialToolbar,
         id = "toolbar",
         layout_width = "match_parent",
         layout_height = "match_parent",
@@ -33,7 +32,6 @@ return function()
     {
       NestedWebView,
       id = "webView",
-      -- visibility = 4, -- gone
       layout_width = "match_parent",
       layout_height = "match_parent",
       layoutTransition = layoutTransition,
@@ -43,7 +41,17 @@ return function()
         id="progressBar",
         layout_width = "match_parent",
         layout_height = "wrap_content",
-      },    
+      },
+    },
+    {
+      MaterialCardView, 
+      id = "cardLeft",     
+      radius = "999dp",
+      visibility = 0,
+      translationX = -176.0,
+      layout_width = "50dp",
+      layout_height = "50dp",      
+      layout_gravity = "center|left",
     }
   }
 end

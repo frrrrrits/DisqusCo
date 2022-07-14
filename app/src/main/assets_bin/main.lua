@@ -1,59 +1,46 @@
 require "import"
 import "initapp"
-import "ui.layout.MainLayout"
-import "ui.settings.Settings"
 import "utils.Theme"
 import "utils.Snack"
 import "utils.ViewExt"
-
-import "utils.dialog.DialogTextInput"
-import "android.webkit.WebViewClient"
+import "utils.ContextExt"
+import "utils.StringExt"
+import "ui.layout.MainLayout"
+import "ui.settings.Settings"
+import "utils.gesture.SwipeRightBack"
 
 local ids = {}
 local webview = require "utils.webview"
 local preference = require "utils.preference"
-defer dayNightDelegate = DayNightDelegate(this)
+local dayNightDelegate = DayNightDelegate(this)
 
 function onCreate(savedInstance)
   activity.setContentView(loadlayout(MainLayout(), ids))
   activity.setSupportActionBar(ids.toolbar)
 
   dayNightDelegate.onCreate(savedInstance)
- 
+
   webview.handleSettings(ids)
   webview.darkModeSupport(preference.webDarkMode:get())
-  
-  ids.webView.loadUrl("https://google.com/")  
-  
-  local dialog = DialogTextInput(activity)
-  :setTitle("Hello!")
-  :setHint("Masukan url")
-  :setAllowNull(false)
-  :setNeutralButton("Keluar", function(dialog, text)
-    activity.finish()
-  end)
-  :setPositiveButton("Mulai", function(dialog, text)
-  end, true, true)
-
-  -- dialog:show()
+  ids.webView.loadUrl(Utils.disqus.url)
+     
+  fixWindowFlags()
+  onApplyTranslucentSystemBars(ids)
 end
 
-function onCreateOptionsMenu(menu,inflater)
+function onCreateOptionsMenu(menu, inflater)
   activity.getMenuInflater().inflate(R.menu.main, menu)
 end
 
 function onOptionsItemSelected(menuItem)
   switch menuItem.itemId
    case R.id.action_settings
-    Settings(this)
+    Settings(this, ids)
    case R.id.action_refresh
+    ids.webView.reload()
    case R.id.action_openbrowser
+    openInBrowser(ids.webView.url)
   end
-end
-
-function onResume()
-  fixWindowFlags()
-  onApplyTranslucentSystemBars()
 end
 
 function onSaveInstanceState(outState)

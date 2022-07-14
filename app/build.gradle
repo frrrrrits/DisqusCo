@@ -22,16 +22,6 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug {
-            minifyEnabled false
-        }
-    }
-
-    sourceSets {
-        main {
-            // jniLibs.srcDir 'src/main/libs'
-            // jni.srcDirs = []
-        }
     }
 }
 

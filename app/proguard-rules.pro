@@ -1,4 +1,3 @@
-# Okhttp
 -dontwarn okio.**
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
@@ -11,10 +10,11 @@
 -keep class com.androlua.** { *; }
 -keep class com.luajava.** { *; }
 -keep class id.lxs.animongo.** { *; }
+-keep class rikka.** {*;}
+
+-keepattributes InnerClasses -keep class **.R 
+-keep class **.R$* { <fields>; }
 
 -keep class android.**{*;}
 -keep class androidx.**{*;}
 -keep class com.**{*;}
-
--keep class com.baidu.bottom.** { *; }
--keep class com.baidu.mobstat.** { *; }

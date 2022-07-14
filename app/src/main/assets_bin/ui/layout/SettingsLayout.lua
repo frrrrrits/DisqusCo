@@ -1,9 +1,9 @@
 import "resource"
-import "rikka.widget.switchbar.SwitchBar"
-import "com.google.android.material.materialswitch.MaterialSwitch"
-
 -- preference layout
 -- created by lxs7499
+
+import "rikka.widget.switchbar.SwitchBar"
+import "com.google.android.material.materialswitch.MaterialSwitch"
 
 return function()
   return {
@@ -94,9 +94,9 @@ return function()
           layout_height = "wrap_content",
           {
             MaterialButton,
-            id = "refreshLoad",
-            icon = "@drawable/ic_user_24dp",
-            text = "Buka disqus akun.",
+            id = "refreshDialog",
+            icon = "@drawable/ic_refresh_24dp",
+            text = "Muat ulang Dialog.",
             layout_width = "wrap_content",
             layout_height = "56dp",
           },
@@ -104,8 +104,8 @@ return function()
             MaterialButton,
             gravity = "start|center",
             id = "openDisqusAccount",
-            icon = "@drawable/ic_refresh_24dp",
-            text = "Muat ulang komen.",
+            icon = "@drawable/ic_user_24dp",
+            text = "Buka disqus Akun.",
             layout_width = "match_parent",
             layout_marginTop = "10dp",
             layout_height = "56dp",

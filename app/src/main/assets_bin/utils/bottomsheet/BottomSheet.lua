@@ -19,6 +19,11 @@ function BottomSheet:bottomSheet()
   return self.bottomSheetDialog
 end
 
+function BottomSheet:dismiss()
+  self.bottomSheetDialog.dismiss()
+  return self
+end
+
 function BottomSheet:build()
   local viewParent = self.layout
   local bottomSheetDialog = BottomSheetDialog(self.context)

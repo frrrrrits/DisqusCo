@@ -11,8 +11,11 @@ import "android.view.ViewGroup$LayoutParams"
 function Snack.snack(text, lengthlong, view)
   local length = Snackbar.LENGTH_SHORT
 
-  if lengthlong == nil then elseif lengthlong == true then
+  if lengthlong == nil then
+   elseif lengthlong == true then
     length = Snackbar.LENGTH_LONG
+   elseif type(lengthlong) == "number" then
+    length = lengthlong
   end
 
   local snackBar = Snackbar.make(view or window.decorView.rootView, text, length).show()
