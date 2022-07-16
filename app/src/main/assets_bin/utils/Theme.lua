@@ -6,6 +6,7 @@ setmetatable(Theme,Theme)
 import "resource"
 import "android.content.res.Resources"
 import "rikka.material.app.DayNightDelegate"
+import "android.graphics.Rect"
 
 local BuildVersion = Build.VERSION
 local VersionCodes = Build.VERSION_CODES
@@ -67,7 +68,7 @@ function fixWindowFlags()
     end
   end
   window.decorView.systemUiVisibility = flags
-  WindowCompat.setDecorFitsSystemWindows(window, false)
+  -- WindowCompat.setDecorFitsSystemWindows(window, false)
 end
 
 return Theme

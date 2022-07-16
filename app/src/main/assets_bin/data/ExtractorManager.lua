@@ -54,7 +54,6 @@ local function getExtractorByUrl(url)
   return tbl
 end
 
-
 -- actually the same with above, but this is return boolean
 -- this used for webclient
 function _M.checkExtractor(url)
@@ -73,23 +72,34 @@ end
 
 function _M.fetchData(url, ids, dialog)
   local utils = require "utils.webview.Utils"
-  local data = ExtractorData.data
-  local extractor = getExtractorByUrl(url)
-  Snack("Memuat extractor.").show()
-  -- trying to catch error,
-  -- dont know if this really working
+  -- trying to catch error
   xpcall(function()
+    local tries = 0
+    local data = ExtractorData.data
+    local extractor = getExtractorByUrl(url)
+    if extractor.directory == nil then
+      ids.loadUrl(url)
+      print("Gagal Memuat Extractor.")
+      return
+    end
+    Snack("Memuat extractor.").show()
     -- heres extractor get loaded
     loads(extractor.directory).get(url)
     fetchHandler = Runnable {
       run = function()
+        tries = tries + 1
+        if tries > 10 then
+          print("Gagal Memuat Extractor.")
+          handler.removeCallbacks(fetchHandler)
+          return
+        end
         -- if table empty then do looping
         if tablempty(data) then
           handler.postDelayed(fetchHandler, 600)
           return
         end
         if dialog then dialog:dismiss() end
-        -- if table exist load this       
+        -- if table exist load this
         utils.loadUrl(ids, data)
         -- stop the handler
         handler.removeCallbacks(fetchHandler)
@@ -98,9 +108,10 @@ function _M.fetchData(url, ids, dialog)
     }
     -- run handler
     handler.post(fetchHandler)
-  end, function(err) print(err) end)
+  end, function(err)
+    print("Terjadi kesalahan: " .. err)
+  end)
 end
-
 
 function _M.createInputTextDialog(ids)
   local clipBoard = tostring(getClipBoard())

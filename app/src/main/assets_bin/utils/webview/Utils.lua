@@ -40,8 +40,10 @@ local function disqusEmbed(disqusIdentifier, disqusShortname)
 end
 
 function Utils.loadUrl(ids, data)
-  local html = disqusEmbed(data.disqusIdentifier, data.disqusShortname)
+  local html = nil
+  html = disqusEmbed(data.disqusIdentifier, data.disqusShortname)
   ids.loadData(html, "text/html", nil)
+  table.clear(data)
 end
 
 function Utils.createDialog(url, ids)
@@ -58,6 +60,8 @@ function Utils.createDialog(url, ids)
     end)
     dialog:show()
     return
+   else
+    ids.loadUrl(decodeUrl)
   end
 end
 

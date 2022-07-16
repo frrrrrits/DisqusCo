@@ -32,13 +32,14 @@ function base.handleSettings(ids)
   settings.setLoadsImagesAutomatically(true)
   settings.setJavaScriptCanOpenWindowsAutomatically(true)
   settings.setUserAgentString(settings.getUserAgentString())
-  
+
   cookieManager.setAcceptThirdPartyCookies(ids.webView, true)
   cookieManager.setAcceptCookie(true)
 
   ids.webView.requestFocusFromTouch()
   ids.webView.setWebViewClient(WebClient())
   ids.webView.setWebChromeClient(ChromeClient(ids))
+
   base.settings = settings
 end
 

@@ -23,7 +23,7 @@
         android:usesCleartextTraffic="true"
         android:extractNativeLibs="true"
         android:requestLegacyExternalStorage="true"
-        android:windowSoftInputMode="adjustResize|stateHidden"
+        android:windowSoftInputMode="adjustResize"
         android:theme="@style/ThemeApp">
 
         <uses-library

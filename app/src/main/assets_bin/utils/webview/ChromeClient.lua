@@ -7,11 +7,6 @@ import "id.lxs.disquscoment.webview.LuaWebChromeClient"
 
 return function(ids)
   return LuaWebChromeClient(LuaWebChromeClient.LuaChromeCreator {
-    onReceivedTitle = function(view, title)
-      -- title:asTitleBar()
-      -- view.url:asSubtitleBar()
-    end,
-
     onCreateWindow = function(view, dialog, gesture, msg)
       local href = view.getHandler().obtainMessage()
       view.requestFocusNodeHref(href)
@@ -20,7 +15,7 @@ return function(ids)
         Utils.createDialog(url, view)
       end
     end,
-
+  
     onProgressChanged = function(view, progress)
       ids.progressBar.progress = progress
       if progress == 100 then

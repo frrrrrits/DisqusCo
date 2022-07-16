@@ -2,12 +2,9 @@
 
 require "import"
 import "android.view.ViewGroup"
-import "com.google.android.material.progressindicator.LinearProgressIndicator"
 import "android.webkit.WebView"
 import "id.lxs.disquscoment.webview.NestedWebView"
-
-local layoutTransition = LayoutTransition()
-.enableTransitionType(LayoutTransition.CHANGING)
+import "com.google.android.material.progressindicator.LinearProgressIndicator"
 
 return function()
   return {
@@ -18,7 +15,9 @@ return function()
     {
       AppBarLayout,
       id = "appbar",
-      fitsSystemWindows = true,
+      elevation = "0dp",
+      liftOnScroll = false,      
+      fitsSystemWindows = true, 
       layout_width = "match_parent",
       layout_height = "wrap_content",
       {
@@ -34,7 +33,6 @@ return function()
       id = "webView",
       layout_width = "match_parent",
       layout_height = "match_parent",
-      layoutTransition = layoutTransition,
       layout_behavior = "appbar_scrolling_view_behavior",
       {
         LinearProgressIndicator,
@@ -43,15 +41,5 @@ return function()
         layout_height = "wrap_content",
       },
     },
-    {
-      MaterialCardView, 
-      id = "cardLeft",     
-      radius = "999dp",
-      visibility = 0,
-      translationX = -176.0,
-      layout_width = "50dp",
-      layout_height = "50dp",      
-      layout_gravity = "center|left",
-    }
   }
 end
