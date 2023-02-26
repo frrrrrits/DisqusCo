@@ -21,12 +21,14 @@ function onCreate(savedInstance)
 
   webview.handleSettings(ids)
   webview.darkModeSupport(preference.webDarkMode:get())
- 
-  ids.webView.loadUrl(Utils.disqus.url)
-  ids.appbar.backgroundColor = resource.resolveColor(R.attr.colorSurface)
+
+  if savedInstance ~= nil then
+    ids.webView.loadUrl(Utils.disqus.url)
+  end
 
   fixWindowFlags()
   onApplyTranslucentSystemBars(ids)
+  ids.appbar.backgroundColor = resource.resolveColor(R.attr.colorSurface)
 end
 
 function onCreateOptionsMenu(menu, inflater)
