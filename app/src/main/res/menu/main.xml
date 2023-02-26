@@ -1,19 +1,18 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:compat="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
      
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings_24dp"
         android:title="@string/string_settings"
-        compat:showAsAction="always" />
+        android:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_refresh"
         android:title="@string/string_refresh"
-        compat:showAsAction="never"/>
+        android:showAsAction="never"/>
 
     <item
         android:id="@+id/action_openbrowser"
         android:title="@string/string_openbrowser"
-        compat:showAsAction="never"/>
+        android:showAsAction="never"/>
 </menu>
