@@ -32,13 +32,13 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
-    - name: Assemble debug
-      run: ./gradlew assembledebug
-    - name: Upload build Debug
-      uses: actions/upload-artifact@v3
-      with:
-        name: app-debug
-        path: app/build/outputs/apk/debug/**.apk
-        if-no-files-found: error
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Assemble debug
+        run: ./gradlew assembledebug
+      - name: Upload build Debug
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/**.apk
+          if-no-files-found: error
