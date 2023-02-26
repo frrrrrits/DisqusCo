@@ -26,7 +26,6 @@ configurations.all {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'dev.rikka.rikkax.appcompat:appcompat:1.4.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
 
     def okhttpVersion = "4.9.1"
