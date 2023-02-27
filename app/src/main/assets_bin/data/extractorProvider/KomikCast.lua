@@ -1,4 +1,5 @@
 -- created by lxs7499
+-- this extractor is not working due error with disqus
 
 local KomikCast = {}
 setmetatable(KomikCast, KomikCast)
@@ -20,11 +21,11 @@ function KomikCast.get(url)
   
     local jsoup = Jsoup.parse(body)
     local parent = jsoup.select("div.komik_info-comments-form > script")
-    local child = tostring(parent):match("var.-embedVars.-=(.-);"):gsub("%s{","[{").."]"
+    local child = tostring(parent):match("var.-embedVars.-=(.-)};"):gsub("%s{","[{").."}]"
     local result = cjson.decode(child)[1]
     
     ExtractorData.extract(
-       result.disqusIdentifier,
+       result.disqusIdentifier:gsub("#038;", ""),
        result.disqusShortname
     )
   end)

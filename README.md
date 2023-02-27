@@ -4,3 +4,5 @@
 
 ### @note
 dont download debug build from actions cuz its not yet complied with lua mean the app is not working
+
+# this project is just for fun
