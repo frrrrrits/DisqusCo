@@ -1,7 +1,7 @@
-import "resource"
 -- preference layout
 -- created by lxs7499
 
+import "resource"
 import "rikka.widget.switchbar.SwitchBar"
 import "com.google.android.material.materialswitch.MaterialSwitch"
 
@@ -150,7 +150,7 @@ return function()
             layout_height = "match_parent",
             {
               TextView,
-              text = "Support for web: WestManga / Kiryuu",
+              text = "Support for web: WestManga / Kiryuu / KomikCast",
               textAppearance = "textAppearanceTitleMedium",
               layout_width = "match_parent",
               layout_margin = "10dp",
@@ -168,7 +168,7 @@ return function()
             },
             {
               TextView,
-              text = "@note: Tercipta Karna Kebutuhan Pribadi.",
+              text = "@note: Di buat Karna Kebutuhan Pribadi.",
               textAppearance = "textAppearanceBodySmall",
               layout_width = "match_parent",
               layout_margin = "10dp",
