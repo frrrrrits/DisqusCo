@@ -32,10 +32,10 @@ jobs:
             $ {{ runner.os }}-gradle-
       - name: Making Copy of Lua files
         run: mkdir -p app/src/main/assets && mkdir -p app/src/main/lua && mkdir -p androlua/src/main/assets && mkdir -p androlua/src/main/lua &&
-          cp -r app/src/main/assets_bin/* > app/src/main/assets/* &&
-          cp -r app/src/main/luaLibs/* > app/src/main/lua/* &&
-          cp -r androlua/src/main/assets_bin/* > androlua/src/main/assets/* &&
-          cp -r androlua/src/main/luaLibs/* > androlua/src/main/lua/*
+          cp -r app/src/main/assets_bin/* > app/src/main/assets/ &&
+          cp -r app/src/main/luaLibs/* > app/src/main/lua/ &&
+          cp -r androlua/src/main/assets_bin/* > androlua/src/main/assets/ &&
+          cp -r androlua/src/main/luaLibs/* > androlua/src/main/lua/
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
       - name: Assemble debug
