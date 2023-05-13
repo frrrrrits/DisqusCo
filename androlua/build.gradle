@@ -21,7 +21,7 @@ android {
     }
     sourceSets {
         main {
-           lua.srcDirs = ['src/main/lua']
+           luaLibs.srcDirs = ['src/main/lua']
         }
     }
 }
