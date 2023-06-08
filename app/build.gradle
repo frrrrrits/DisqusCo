@@ -51,7 +51,7 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.7.0'
     implementation "dev.rikka.rikkax.appcompat:appcompat:$rikka_compact"
-    implementation 'dev.rikka.rikkax.material:material:$rikka_material'
+    implementation "dev.rikka.rikkax.material:material:$rikka_material"
 
     // trying to fix duplicate class, even thought this not used
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
