@@ -1,5 +1,5 @@
 ext {
-    build_gradle_version = '7.2.1'
+    build_gradle_version = '7.4.2'
     rikka_material = "2.7.0"
     rikka_compact = "1.6.1"
 }
