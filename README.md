@@ -1,9 +1,16 @@
-## Building By Using
+### Disqus Comment
+Just a simple apps using WebViews to extract/shown Disqus comment Sections *Made With 50% lua*.
+Currently support website WestManga & Kiryuu cuz mostly i read there.
+
+### 🐿 Made With 
 - [AideLua](https://github.com/Jesse205/Aide-Lua)
 - <s>[AndroidIDE](https://github.com/itsaky/AndroidIDE)</s>.
 - [Github Cli](https://github.com/frrrrrits/DisqusCo/actions)
 
-### @note
-You can download the app from the latest <b>Actions Cli</b> was fine (dont use non lua).
+### 🧢 Motivation 
+I love reading comic with Tachiyomi but there's no comment section on that apps, indonesian website mostly using Disqus for they comment section, its kinda lazy to open the original's website just for commenting lmaoo 🧢🧢
+
+### 🐸 @Note
+You can download the app from the latest **Actions Cli** was fine (dont use no lua).
 
 # this project is just for fun
