@@ -44,7 +44,6 @@ end
 function Utils.loadUrl(ids, data)
   local html = nil
   html = disqusEmbed(data.disqusIdentifier, data.disqusShortname, data.webTitle)
-  print(html)
   ids.loadData(html, "text/html", nil)
   table.clear(data)
 end
