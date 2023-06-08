@@ -7,6 +7,10 @@ import "id.lxs.disquscoment.webview.LuaWebChromeClient"
 
 return function(ids)
   return LuaWebChromeClient(LuaWebChromeClient.LuaChromeCreator {
+    onReceivedTitle = function(view, title)
+      print(title, true)
+      ids.toolbar.title = tostring(title)
+    end,
     onCreateWindow = function(view, dialog, gesture, msg)
       local href = view.getHandler().obtainMessage()
       view.requestFocusNodeHref(href)

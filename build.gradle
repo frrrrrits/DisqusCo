@@ -1,8 +1,6 @@
-buildscript {
-    ext {
-       build_gradle_version = '7.2.1'
-    }
-    
+buildscript { 
+    apply from: 'manifest.gradle'
+
     repositories {
         gradlePluginPortal()
         google()

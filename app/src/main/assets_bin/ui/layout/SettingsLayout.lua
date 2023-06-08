@@ -54,6 +54,7 @@ return function()
           {
             LinearLayout,
             layout_margin = "8dp",
+            padding="10dp",
             orientation = "vertical",
             layout_width = "match_parent",
             layout_height = "match_parent",
@@ -63,8 +64,7 @@ return function()
               text = "Tema aplikasi gelap.",
               textAppearance = "textAppearanceTitleMedium",
               layout_width = "match_parent",
-              layout_margin = "10dp",
-              layout_height = "30dp",
+              layout_height = "wrap_content",
             },
             {
               MaterialSwitch,
@@ -72,7 +72,14 @@ return function()
               text = "Paksa mode gelap untuk browser.",
               textAppearance = "textAppearanceTitleMedium",
               layout_width = "match_parent",
-              layout_margin = "10dp",
+              layout_height = "wrap_content",
+            },
+            {
+              MaterialSwitch,
+              id = "switchDeveloperMode",
+              text = "Opsi untuk developer.",
+              textAppearance = "textAppearanceTitleMedium",
+              layout_width = "match_parent",
               layout_height = "wrap_content",
             },
           },

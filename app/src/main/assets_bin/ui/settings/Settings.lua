@@ -22,7 +22,9 @@ end
 
 -- override function
 local function checkedListner(view, fun)
-  view.setOnCheckedChangeListener { onCheckedChanged = fun }
+  view.setOnCheckedChangeListener {
+    onCheckedChanged = fun
+  }
 end
 
 local ids = {}
@@ -51,7 +53,7 @@ function Settings.init(context, mainViews)
   :build()
 
   initPrefrences()
-  
+
   ids.refreshDialog.onClick = function()
     bottomSheet:dismiss()
     extractorManager
@@ -62,14 +64,12 @@ function Settings.init(context, mainViews)
 
   ids.openDisqusAccount.onClick = function()
     bottomSheet:dismiss()
-    SettingsAction
-    .openAccount(account, state, mainViews)
+    SettingsAction.openAccount(account, state, mainViews)
   end
 
   ids.deleteCookieCache.onClick = function()
     bottomSheet:dismiss()
-    SettingsAction
-    .createDialogDeletion(context, account, mainViews)
+    SettingsAction.createDialogDeletion(context, account, mainViews)
   end
 
   checkedListner(ids.switchWebDarkMode, function(view, isChecked)

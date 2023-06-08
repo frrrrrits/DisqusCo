@@ -31,7 +31,7 @@ SettingsAction.createDialogDeletion = function(context, account, ids)
       ids.webView.clearFormData()
       ids.webView.clearHistory()
       ids.webView.clearSslPreferences()
-      Snack("Menghapus", true)
+      Snack("Dihapus", true)
     end,
     function(error)
       Snack("Tidak dapat menghapus cache dan cookie.", true)
