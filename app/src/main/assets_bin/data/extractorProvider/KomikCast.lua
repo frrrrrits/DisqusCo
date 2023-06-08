@@ -18,15 +18,17 @@ function KomikCast.get(url)
     if code ~= 200 then print("failed to extract: " .. tostring(code)) error(err)
       return
     end
-  
+
     local jsoup = Jsoup.parse(body)
     local parent = jsoup.select("div.komik_info-comments-form > script")
     local child = tostring(parent):match("var.-embedVars.-=(.-)};"):gsub("%s{","[{").."}]"
     local result = cjson.decode(child)[1]
-    
+    print(child)
+
     ExtractorData.extract(
-       result.disqusIdentifier:gsub("#038;", ""),
-       result.disqusShortname
+    result.disqusIdentifier:gsub("#038;", ""),
+    result.disqusShortname,
+    jsoup.title()
     )
   end)
 end

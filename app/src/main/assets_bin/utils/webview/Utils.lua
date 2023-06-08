@@ -1,5 +1,6 @@
 -- created by lxs7499
 
+import "utils.ViewExt"
 import "utils.StringExt"
 import "data.ExtractorManager"
 import "utils.dialog.MaterialDialog"
@@ -28,11 +29,12 @@ function Utils.saveUrl(url)
   end
 end
 
-local function disqusEmbed(disqusIdentifier, disqusShortname)
+local function disqusEmbed(disqusIdentifier, disqusShortname, webTitle)
   return "<div id='disqus_thread'></div>"
   .. "<script type='text/javascript'>"
   .. "var disqus_identifier = '" .. disqusIdentifier .. "';"
   .. "var disqus_shortname = '" .. disqusShortname .. "';"
+  .. "var diqus_title = '" .. webTitle .. "';"
   .. " (function() { var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;"
   .. "dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';"
   .. "(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })();"
@@ -41,7 +43,8 @@ end
 
 function Utils.loadUrl(ids, data)
   local html = nil
-  html = disqusEmbed(data.disqusIdentifier, data.disqusShortname)
+  html = disqusEmbed(data.disqusIdentifier, data.disqusShortname, data.webTitle)
+  print(html)
   ids.loadData(html, "text/html", nil)
   table.clear(data)
 end

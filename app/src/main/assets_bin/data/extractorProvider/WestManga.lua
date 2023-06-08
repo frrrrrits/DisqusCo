@@ -25,7 +25,8 @@ function WestManga.get(url)
     
     ExtractorData.extract(
       result.disqusIdentifier,
-      result.disqusShortname
+      result.disqusShortname,
+      jsoup.title()
     )
   end)
 end

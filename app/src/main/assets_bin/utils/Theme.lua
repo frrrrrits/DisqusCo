@@ -5,7 +5,7 @@ setmetatable(Theme,Theme)
 
 import "resource"
 import "android.content.res.Resources"
-import "rikka.material.app.DayNightDelegate"
+import "androidx.appcompat.app.AppCompatDelegate"
 import "android.graphics.Rect"
 
 local BuildVersion = Build.VERSION

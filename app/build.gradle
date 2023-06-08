@@ -28,7 +28,7 @@ android {
 materialThemeBuilder {
     themes {
         'default' {
-            primaryColor = "#FF9254"
+            primaryColor = "#AFB4FF"
             dynamicColors = false
             lightThemeFormat = "Theme.Material3.Light.%s"
             lightThemeParent = "Base.Material3.Light.Rikka"

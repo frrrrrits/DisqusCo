@@ -38,7 +38,7 @@ function BottomSheet:build()
   
   layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT 
   bottomSheet.layoutParams = layoutParams
-  behavior.peekHeight = metrics.heightPixels / 2
+  behavior.peekHeight = metrics.heightPixels / 2 * 1.5
     
   bottomSheetDialog.window.setNavigationBarColor(0)
   bottomSheetDialog.show()

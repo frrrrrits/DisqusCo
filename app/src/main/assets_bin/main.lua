@@ -11,14 +11,11 @@ import "ui.settings.Settings"
 local ids = {}
 local webview = require "utils.webview"
 local preference = require "utils.preference"
-local dayNightDelegate = DayNightDelegate(this)
 
 function onCreate(savedInstance)
   activity.setContentView(loadlayout(MainLayout(), ids))
-  activity.setSupportActionBar(ids.toolbar)
-
-  dayNightDelegate.onCreate(savedInstance)
-
+  activity.setSupportActionBar(ids.toolbar)  
+      
   webview.handleSettings(ids)
   webview.darkModeSupport(preference.webDarkMode:get())
 
@@ -44,14 +41,6 @@ function onOptionsItemSelected(menuItem)
    case R.id.action_openbrowser
     openInBrowser(ids.webView.url)
   end
-end
-
-function onSaveInstanceState(outState)
-  dayNightDelegate.onSaveInstanceState(outState)
-end
-
-function onDestroy()
-  dayNightDelegate.onDestroy()
 end
 
 local lastExitTime = 0

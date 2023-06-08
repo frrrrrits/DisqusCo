@@ -1,15 +1,21 @@
 local SettingsAction = {}
 
+import "utils.webview.Utils"
 import "android.webkit.WebStorage"
 import "android.webkit.CookieManager"
 
+local disqusWeb = function(url, ids)
+  ids.webView.visibility = 0
+  ids.webView.loadUrl(url)
+end
+
 SettingsAction.openAccount = function(account, state, ids)
   if account:get() ~= state.accountLogin then
-    ids.webView.visibility = 0
-    ids.webView.loadUrl(account:get())
+    disqusWeb(account:get(), ids)
+   else
+    disqusWeb(Utils.disqus.url, ids)
     return
   end
-  Snack("PASTIKAN UNTUK LOGIN KE AKUN DISQUS.", true)
 end
 
 SettingsAction.createDialogDeletion = function(context, account, ids)

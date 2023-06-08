@@ -74,14 +74,6 @@ return function()
               layout_width = "match_parent",
               layout_height = "wrap_content",
             },
-            {
-              MaterialSwitch,
-              id = "switchDeveloperMode",
-              text = "Opsi untuk developer.",
-              textAppearance = "textAppearanceTitleMedium",
-              layout_width = "match_parent",
-              layout_height = "wrap_content",
-            },
           },
         },
         {

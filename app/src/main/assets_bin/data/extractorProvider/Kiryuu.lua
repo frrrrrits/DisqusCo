@@ -22,10 +22,11 @@ function Kiryuu.get(url)
     local parent = jsoup.select("script[id='disqus_embed-js-extra']")
     local child = tostring(parent):match("var.-embedVars.-=(.-);"):gsub("%s{","[{").."]"
     local result = cjson.decode(child)[1]
-    
+      
     ExtractorData.extract(
        result.disqusIdentifier,
-       result.disqusShortname
+       result.disqusShortname,
+       jsoup.title()
     )
   end)
 end

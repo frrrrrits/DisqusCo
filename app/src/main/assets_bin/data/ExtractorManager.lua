@@ -108,18 +108,18 @@ function _M.fetchData(url, ids, dialog)
     }
     -- run handler
     handler.post(fetchHandler)
-  end, function(err)
+    end, function(err)
     print("Terjadi kesalahan: " .. err)
   end)
 end
 
 function _M.createInputTextDialog(ids)
-  local clipBoard = tostring(getClipBoard())
   local dialog = DialogTextInput(this)
   :setTitle("Hello!")
   :setHint("Masukan url")
   :setHelperText("help: mulai dengan https/http")
   :setAllowNull(false)
+  :useLastText(true)
 
   dialog:setPositiveButton("Mulai", function(_, text)
     if text:startswith("http") then
@@ -131,7 +131,7 @@ function _M.createInputTextDialog(ids)
   end, true, true)
 
   dialog:setNegativeButton("Tempel", function(view, text)
-    if clipBoard:startswith("http") then
+    if getClipBoard():startswith("http") then
       dialog:setTextFromClipBoard()
       return true
     end

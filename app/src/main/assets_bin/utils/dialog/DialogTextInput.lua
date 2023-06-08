@@ -6,10 +6,21 @@ setmetatable(DialogTextInput, DialogTextInput)
 import "com.google.android.material.dialog.MaterialAlertDialogBuilder"
 import "android.view.inputmethod.InputMethodManager"
 
-inputMethodService = activity.getSystemService(Context.INPUT_METHOD_SERVICE)
-
-local EmptyStr = "Gaboleh kosong."
+local preference = require "utils.preference"
+local inputMethodService = activity.getSystemService(Context.INPUT_METHOD_SERVICE)
+local EmptyStr = "Url kosong."
 local MustHttp = "Url invalid."
+local LastText = preference.lastUrl
+
+local function checkLastText()
+  local text = LastText:get()
+  return text == -1
+end
+
+local function getOrSetLastText(str)
+  if str then LastText:set(str) end
+  return tostring(LastText:get())
+end
 
 local function toboolean(b)
   if b then
@@ -66,6 +77,11 @@ end
 
 function DialogTextInput:setAllowNull(state)
   self.allowNull = state
+  return self
+end
+
+function DialogTextInput:useLastText(state)
+  self.lastText = state
   return self
 end
 
@@ -126,7 +142,7 @@ function DialogTextInput:show()
   self.ids = ids
   local context, checkNullButtons = self.context, self.checkNullButtons
   local positiveButton, neutralButton, negativeButton = self.positiveButton, self.neutralButton, self.negativeButton
-  local text, hint, helperText = self.text, self.hint, self.helperText
+  local text, hint, helperText, lastText = self.text, self.hint, self.helperText, self.lastText
   local defaultFunc = self.defaultFunc
   local dialogBuilder =
   MaterialAlertDialogBuilder(context).setTitle(self.title).setView(layout(ids, self)).setCancelable(false)
@@ -198,6 +214,12 @@ function DialogTextInput:show()
     editText.setText(text)
     editText.setSelection(utf8.len(text))
   end
+  if lastText then
+    if not checkLastText() then
+      editText.setText(getOrSetLastText())
+      editText.setSelection(editText.getText().length())
+    end
+  end
   if hint then
     if type(hint) == "number" then
       hint = context.getString(hint)
@@ -212,6 +234,7 @@ function DialogTextInput:show()
     editText.addTextChangedListener({
       onTextChanged = function(text, start, before, count)
         text = tostring(text)
+        if text ~= "" then getOrSetLastText(text) end
         if text == "" and not (oldErrorEnabled) then
           inputLayout.setError(EmptyStr).setErrorEnabled(true)
           oldErrorEnabled = true
