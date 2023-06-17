@@ -6,7 +6,7 @@ import "utils.webview.Utils"
 import "id.lxs.disquscoment.webview.LuaWebChromeClient"
 
 return function(ids)
-  
+
   -- hardcode lol
   local removeSubtitle = function()
     ids.toolbar.setLayoutTransition(nil)

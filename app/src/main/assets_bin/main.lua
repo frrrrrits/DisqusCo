@@ -14,8 +14,8 @@ local preference = require "utils.preference"
 
 function onCreate(savedInstance)
   activity.setContentView(loadlayout(MainLayout(), ids))
-  activity.setSupportActionBar(ids.toolbar)  
-      
+  activity.setSupportActionBar(ids.toolbar)
+
   webview.handleSettings(ids)
   webview.darkModeSupport(preference.webDarkMode:get())
 

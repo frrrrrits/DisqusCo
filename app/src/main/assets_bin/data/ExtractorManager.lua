@@ -21,9 +21,9 @@ local function extractorToList()
   local astable = luajava.astable
   local directory = activity.getLuaDir() .. "/data/extractorProvider"
   local files = astable(File(directory).listFiles())
-  -- clear previous table if has it
+  -- clear previous table
   table.clear(tbl)
-  -- cuz this get call evry time
+  -- cuz this looper get call evry time
   table.foreach(files,function(index, content)
     if not(content.isDirectory()) then
       local path = string.format("%s/%s", directory, tostring(content.name))
@@ -41,34 +41,36 @@ end
 -- find baseUrl extractor with current url
 -- if they match then return [ it extractor directory ]
 -- @param [url] to get the extractor or load
-local function getExtractorByUrl(url)
-  local tbl = {}
+local function _getExtractorByUrl(url, func)
   local extractorList = extractorToList()
   for index, content in ipairs(extractorList) do
     local baseUrl = tostring(content.file.baseUrl)
     if url:startswith(baseUrl) then
-      tbl.directory = content.file.directory
+      local directory = content.file.directory
+      func(directory, baseUrl)
       break
     end
   end
-  return tbl
+  return func
 end
 
--- actually the same with above, but this is return boolean
--- this used for webclient
+local function getExtractorByUrl(url)
+  local directoryTable = {}
+  _getExtractorByUrl(url, function(dir)
+    directoryTable.directory = dir
+  end)
+  return directoryTable
+end
+
 function _M.checkExtractor(url)
-  local ismatch = false
-  local extractorList = extractorToList()
-  for index, content in ipairs(extractorList) do
-    local baseUrl = tostring(content.file.baseUrl)
+  local isMatchByUrl = false
+  _getExtractorByUrl(url, function(dir, baseUrl)
     if url:match(baseUrl) ~= nil then
-      ismatch = true
-      break
+      isMatchByUrl = true
     end
-  end
-  return ismatch
+  end)
+  return isMatchByUrl
 end
-
 
 function _M.fetchData(url, ids, dialog)
   local utils = require "utils.webview.Utils"
@@ -108,7 +110,8 @@ function _M.fetchData(url, ids, dialog)
     }
     -- run handler
     handler.post(fetchHandler)
-    end, function(err)
+  end,
+  function(err)
     print("Terjadi kesalahan: " .. err)
   end)
 end

@@ -145,8 +145,9 @@ function DialogTextInput:show()
   local text, hint, helperText, lastText = self.text, self.hint, self.helperText, self.lastText
   local defaultFunc = self.defaultFunc
   local dialogBuilder =
-  MaterialAlertDialogBuilder(context).setTitle(self.title).setView(layout(ids, self)).setCancelable(false)
-
+  MaterialAlertDialogBuilder(context).setTitle(self.title).setView(layout(ids, self)).setCancelable(false)  
+  if not checkLastText() text = getOrSetLastText() end
+  
   if positiveButton then
     dialogBuilder.setPositiveButton(positiveButton[1], nil)
   end

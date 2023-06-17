@@ -149,7 +149,7 @@ return function()
             layout_height = "match_parent",
             {
               TextView,
-              text = "Support for web: WestManga / Kiryuu / KomikCast",
+              text = "Support for web: WestManga / Kiryuu / Shinigami",
               textAppearance = "textAppearanceTitleMedium",
               layout_width = "match_parent",
               layout_margin = "10dp",

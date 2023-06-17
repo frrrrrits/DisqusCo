@@ -48,22 +48,51 @@ function Utils.loadUrl(ids, data)
   table.clear(data)
 end
 
+local function load_dialog(args)
+  local args = args or {}
+  if not activity.isFinishing() then
+    local dialog = MaterialDialog(this)
+    :title(args.title)
+    :message(args.message)
+    for _, value in ipairs(args.button) do
+      if value.positive then
+        dialog:positiveButton(value.positive, value[1])
+       elseif value.negative then
+        dialog:negativeButton(value.negative, value[1])
+      end
+    end
+    dialog:show()
+    return dialog
+  end
+end
+
 function Utils.createDialog(url, ids)
   local decodeUrl = URLDecoder.decode(url, "UTF-8")
   if ExtractorManager.checkExtractor(decodeUrl) then
-    local dialog = MaterialDialog(this)
-    :title("Muat extractor?")
-    :message("Memuat disqus komen.")
-    :positiveButton("Muat", function()
-      ExtractorManager.fetchData(url, ids)
-    end)
-    :negativeButton("Muat website", function()
-      ids.loadUrl(decodeUrl)
-    end)
-    dialog:show()
+    local dialog = load_dialog {
+      title = "Muat extractor?",
+      message = "Memuat disqus komen.",
+      button = {
+        { positive = "Muat", lambda():
+          ExtractorManager.fetchData(url, ids)
+        },
+        { negative = "Muat website asli.",
+          lambda(): ids.loadUrl(decodeUrl)
+        }
+      },
+    }
     return
    else
-    ids.loadUrl(decodeUrl)
+    local dialog = load_dialog {
+      title = "Muat website?",
+      message = "Extractor tidak ditemukan, ingin memuat website asli?",
+      button = {
+        { positive = "Muat", lambda():
+          ids.loadUrl(decodeUrl)
+        },
+        { negative = "Batal", nil}
+      },
+    }
   end
 end
 
