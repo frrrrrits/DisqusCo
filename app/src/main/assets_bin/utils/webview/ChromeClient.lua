@@ -49,6 +49,7 @@ return function(ids)
       title:setAsTitleBar()
       title:setAsSubtitleBar()
     end,
+  
     onCreateWindow = function(view, dialog, gesture, msg)
       local href = view.getHandler().obtainMessage()
       view.requestFocusNodeHref(href)

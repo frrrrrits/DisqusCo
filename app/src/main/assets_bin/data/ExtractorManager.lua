@@ -123,7 +123,8 @@ function _M.createInputTextDialog(ids)
   :setHelperText("help: mulai dengan https/http")
   :setAllowNull(false)
   :useLastText(true)
-
+  :setExtractorList(extractorToList())
+  
   dialog:setPositiveButton("Mulai", function(_, text)
     if text:startswith("http") then
       _M.fetchData(tostring(text), ids.webView, dialog)

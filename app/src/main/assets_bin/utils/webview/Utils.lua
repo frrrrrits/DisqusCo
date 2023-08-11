@@ -18,6 +18,14 @@ local disqus = {
 Utils.disqus = disqus
 
 local account = preference.disqusAccount
+local lastUrl = preference.lastUrl
+
+function Utils.getLastUrl()
+  local url = lastUrl:get()
+  if url == -1 then return disqus.url
+   else return lastUrl:get()
+  end
+end
 
 function Utils.saveUrl(url)
   local url = tostring(url)
@@ -41,10 +49,22 @@ local function disqusEmbed(disqusIdentifier, disqusShortname, webTitle)
   .. "</script>"
 end
 
+local function disqusEmbedData(data)
+  return disqusEmbed(
+     data.disqusIdentifier,
+     data.disqusShortname,
+     data.webTitle
+  )
+end
+
 function Utils.loadUrl(ids, data)
-  local html = nil
-  html = disqusEmbed(data.disqusIdentifier, data.disqusShortname, data.webTitle)
-  ids.loadData(html, "text/html", nil)
+  if data.isExtract then
+    local html = nil
+    html = disqusEmbedData(data)
+    ids.loadData(html, "text/html", nil)
+   else
+    ids.loadUrl(data.disqusEmbedUrl)
+  end
   table.clear(data)
 end
 

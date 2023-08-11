@@ -22,8 +22,9 @@ function Snack.snack(text, lengthlong, view)
   local layoutParams = snackBar.view.layoutParams
 
   layoutParams.gravity = Gravity.TOP
-  layoutParams.setMargins(uihelper.dp2int(10), uihelper.dp2int(40), uihelper.dp2int(10), 0)
+  layoutParams.setMargins(uihelper.dp2int(10), uihelper.dp2int(120), uihelper.dp2int(10), 0)
   snackBar.view.layoutParams = layoutParams
+  snackBar.view.onClick = lambda _:snackBar.dismiss()
   return snackBar
 end
 

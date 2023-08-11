@@ -1,5 +1,5 @@
 -- created by lxs7499
--- this extractor is not working due error with disqus
+-- this extractor is now working
 
 local KomikCast = {}
 setmetatable(KomikCast, KomikCast)
@@ -8,7 +8,7 @@ local cjson = require "cjson"
 local ExtractorApi = require "data.ExtractorApi"
 local ExtractorData = require "data.ExtractorData"
 
-KomikCast.extractor = ExtractorApi:create("KomikCast", "https://komikcast.site")
+KomikCast.extractor = ExtractorApi:create("KomikCast", "https://komikcast.vip")
 
 function KomikCast.get(url)
   return KomikCast.extractor
@@ -22,14 +22,18 @@ function KomikCast.get(url)
     local jsoup = Jsoup.parse(body)
     local parent = jsoup.select("div.komik_info-comments-form > script")
     local child = tostring(parent):match("var.-embedVars.-=(.-)};"):gsub("%s{","[{").."}]"
-    local result = cjson.decode(child)[1]
-    print(child)
 
-    ExtractorData.extract(
-    result.disqusIdentifier:gsub("#038;", ""),
-    result.disqusShortname,
-    jsoup.title()
-    )
+    local result = cjson.decode(child)[1]
+    local title = tostring(jsoup.title()):encodeEntity()
+    
+    local query = table.buildQuery{
+      t_i = result.disqusIdentifier:encodeEntity(),
+      t_u = url:encodeEntity(),
+      t_e = title, t_d = title, t_t = title,
+      s_o = "default#version=cd63a892ad6cfe24a51d9c0f999a4afa"
+    }
+  
+    ExtractorData.disqusEmbed(result.disqusShortname, query)
   end)
 end
 

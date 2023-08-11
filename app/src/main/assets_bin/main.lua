@@ -20,7 +20,7 @@ function onCreate(savedInstance)
   webview.darkModeSupport(preference.webDarkMode:get())
 
   if savedInstance ~= nil then
-    ids.webView.loadUrl(Utils.disqus.url)
+    ids.webView.loadUrl(Utils.getLastUrl())
   end
 
   fixWindowFlags()

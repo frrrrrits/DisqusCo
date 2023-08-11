@@ -30,6 +30,18 @@ local function toboolean(b)
   end
 end
 
+local function extractorMatch(tab, str)
+  local isMatchByUrl = false
+  for index, content in ipairs(tab) do
+    local url = tostring(content.file.baseUrl)
+    if str:startswith(url) then
+      isMatchByUrl = true
+      break
+    end
+  end
+  return isMatchByUrl
+end
+
 local function layout(ids, self)
   local matchParent = ViewGroup.LayoutParams.MATCH_PARENT
   local wrapContent = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -85,6 +97,11 @@ function DialogTextInput:useLastText(state)
   return self
 end
 
+function DialogTextInput:setExtractorList(tab)
+  self.extractorList = tab
+  return self
+end
+
 function DialogTextInput:setTextFromClipBoard()
   local text = tostring(getClipBoard())
   self.ids.editText.setText(text)
@@ -100,9 +117,11 @@ local function setButton(self, text, func, defaultFunc, checkNull, buttonType)
       local inputLayout = self.ids.inputLayout
       if checkNull and not (self.allowNull) then
         if text == "" then
-          inputLayout.setError(EmptyStr).setErrorEnabled(true)
+          inputLayout.setError(EmptyStr)
+          .setErrorEnabled(true)
           return true
         end
+
         -- if not text:startwith("http") then
         --   inputLayout.setError(MustHttp).setErrorEnabled(true)
         --   return true
@@ -142,12 +161,12 @@ function DialogTextInput:show()
   self.ids = ids
   local context, checkNullButtons = self.context, self.checkNullButtons
   local positiveButton, neutralButton, negativeButton = self.positiveButton, self.neutralButton, self.negativeButton
-  local text, hint, helperText, lastText = self.text, self.hint, self.helperText, self.lastText
+  local text, hint, helperText, lastText, extractorList = self.text, self.hint, self.helperText, self.lastText, self.extractorList
   local defaultFunc = self.defaultFunc
   local dialogBuilder =
-  MaterialAlertDialogBuilder(context).setTitle(self.title).setView(layout(ids, self)).setCancelable(false)  
+  MaterialAlertDialogBuilder(context).setTitle(self.title).setView(layout(ids, self)).setCancelable(false)
   if not checkLastText() text = getOrSetLastText() end
-  
+
   if positiveButton then
     dialogBuilder.setPositiveButton(positiveButton[1], nil)
   end
@@ -215,10 +234,15 @@ function DialogTextInput:show()
     editText.setText(text)
     editText.setSelection(utf8.len(text))
   end
+  local oldErrorEnabled = textState
   if lastText then
     if not checkLastText() then
       editText.setText(getOrSetLastText())
       editText.setSelection(editText.getText().length())
+    end
+    if not extractorMatch(extractorList, text) then
+      inputLayout.setError("extractor untuk situs ini tidak tersedia")
+      oldErrorEnabled = true
     end
   end
   if hint then
@@ -231,7 +255,6 @@ function DialogTextInput:show()
     editText.onEditorAction = defaultFunc
   end
   if not (self.allowNull) then
-    local oldErrorEnabled = textState
     editText.addTextChangedListener({
       onTextChanged = function(text, start, before, count)
         text = tostring(text)
@@ -243,13 +266,9 @@ function DialogTextInput:show()
             content.setEnabled(false)
           end
           return
-          -- elseif not text:startwith("https://") or text:startwith("http://") and not (oldErrorEnabled) then
-          -- inputLayout.setError(MustHttp).setErrorEnabled(true)
-          -- oldErrorEnabled = true
-          -- for index, content in ipairs(checkNullButtons) do
-          --  content.setEnabled(false)
-          -- end
-          -- return
+         elseif not extractorMatch(extractorList, text) then
+          inputLayout.setError("extractor untuk situs ini tidak tersedia")
+          oldErrorEnabled = true
          elseif oldErrorEnabled then
           inputLayout.setErrorEnabled(false)
           oldErrorEnabled = false
